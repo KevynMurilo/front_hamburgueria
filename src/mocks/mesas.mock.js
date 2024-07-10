@@ -1,0 +1,18 @@
+export const mockMesas = [
+    { id: 1, numero: 1, status: 'ocupado' },
+    { id: 2, numero: 2, status: 'disponivel' },
+    { id: 3, numero: 3, status: 'ocupado' },
+    { id: 4, numero: 4, status: 'disponivel' },
+    { id: 5, numero: 5, status: 'disponivel' },
+    { id: 6, numero: 6, status: 'disponivel' },
+    { id: 7, numero: 7, status: 'disponivel' },
+    { id: 8, numero: 8, status: 'disponivel' },
+    { id: 9, numero: 9, status: 'ocupado' },
+    { id: 10, numero: 10, status: 'disponivel' },
+    { id: 11, numero: 11, status: 'disponivel' },
+    { id: 12, numero: 12, status: 'ocupado' },
+    { id: 13, numero: 13, status: 'disponivel' },
+    { id: 14, numero: 14, status: 'ocupado' },
+    { id: 15, numero: 15, status: 'disponivel' },
+    { id: 16, numero: 16, status: 'disponivel' },
+  ];

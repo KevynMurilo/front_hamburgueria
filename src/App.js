@@ -1,25 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { AuthProvider } from './contexts/AuthContext';
+import AppRoutes from './routes/app.routes';
+import { WaitersProvider } from './contexts/GarcomContext';
+import { RestauranteProvider } from './contexts/PedidoContext';
+import { ProdutoProvider } from './contexts/ProdutoContext';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => (
+  <Router>
+    <AuthProvider>
+      <WaitersProvider>
+        <RestauranteProvider>
+          <ProdutoProvider>
+            <AppRoutes />
+          </ProdutoProvider>
+        </RestauranteProvider>
+      </WaitersProvider>
+    </AuthProvider>
+  </Router>
+);
 
 export default App;
