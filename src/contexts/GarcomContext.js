@@ -1,30 +1,57 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
 
 export const WaitersContext = createContext();
 
 export const WaitersProvider = ({ children }) => {
   const [waiters, setWaiters] = useState([]);
-  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    fetchWaiters();
+  }, []);
+
+  const fetchWaiters = async () => {
+    try {
+      const response = await axios.get('http://192.168.0.105:8081/garcons');
+      setWaiters(response.data);
+    } catch (error) {
+      console.error('Erro ao buscar garçons:', error);
+    }
+  };
 
   const registerWaiter = async (newWaiter) => {
     try {
       const response = await axios.post('http://192.168.0.105:8081/garcons', newWaiter);
-      const data = response.data;
-      setWaiters([...waiters, data]);
-      console.log('Garçom registrado com sucesso:', data);
-      setError(null);
+      setWaiters((prevWaiters) => [...prevWaiters, response.data]);
     } catch (error) {
-      if (error.response && error.response.status === 409) {
-        setError('Email já cadastrado. Por favor, use outro email.');
-      } else {
-        setError('Erro ao registrar garçom. Por favor, tente novamente.');
-      }
+      console.error('Erro ao registrar garçom:', error);
+      throw error;
+    }
+  };
+
+  const updateWaiter = async (id, updatedWaiter) => {
+    try {
+      await axios.patch(`http://192.168.0.105:8081/garcons/${id}`, updatedWaiter);
+      setWaiters((prevWaiters) =>
+        prevWaiters.map((waiter) => (waiter.id === id ? { ...waiter, ...updatedWaiter } : waiter))
+      );
+    } catch (error) {
+      console.error('Erro ao atualizar garçom:', error);
+      throw error;
+    }
+  };
+
+  const deleteWaiter = async (id) => {
+    try {
+      await axios.delete(`http://192.168.0.105:8081/garcons/${id}`);
+      setWaiters((prevWaiters) => prevWaiters.filter((waiter) => waiter.id !== id));
+    } catch (error) {
+      console.error('Erro ao deletar garçom:', error);
     }
   };
 
   return (
-    <WaitersContext.Provider value={{ waiters, error, registerWaiter }}>
+    <WaitersContext.Provider value={{ waiters, registerWaiter, updateWaiter, deleteWaiter }}>
       {children}
     </WaitersContext.Provider>
   );

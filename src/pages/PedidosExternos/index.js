@@ -1,22 +1,19 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PedidosComModal from '../../components/EntidadesComModal/EntidadesComModal';
 import { useRestauranteContext } from '../../contexts/PedidoContext';
 
-function PedidosClientes() {
-  const { pedidosPendentesClientes, fetchPedidosPendentesClientes } = useRestauranteContext();
-
-  useEffect(() => {
-    fetchPedidosPendentesClientes();
-  }, []);
+function PedidosExternos() {
+  const { pedidosPendentesClientes, fetchPedidosCliente, fetchPedidosPendentesClientes } = useRestauranteContext();
 
   return (
     <PedidosComModal
-      title="Pedidos Externos (Clientes)"
+      title=""
       items={pedidosPendentesClientes}
-      fetchItemsData={fetchPedidosPendentesClientes}
+      fetchItemsData={fetchPedidosCliente}
       fetchItems={fetchPedidosPendentesClientes}
+      isExternal={true}
     />
   );
 }
 
-export default PedidosClientes;
+export default PedidosExternos;
