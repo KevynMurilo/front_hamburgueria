@@ -2,12 +2,13 @@ import React, { useState, useContext } from 'react';
 import logo from '../../assets/logo2.png';
 import { FaSignOutAlt, FaBars, FaTimes, FaExternalLinkSquareAlt } from 'react-icons/fa';
 import { BiSolidRegistered } from "react-icons/bi";
+import { FiUsers } from "react-icons/fi";
 import { CgInternal } from "react-icons/cg";
 import { FaCashRegister } from "react-icons/fa6";
 import { MdTableRestaurant } from "react-icons/md";
-import { RiUserAddFill } from "react-icons/ri";
 import LogoutModal from './LogoutModal';
 import AuthContext from "../../contexts/AuthContext";
+import { MdDashboard } from "react-icons/md";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -39,9 +40,8 @@ const Sidebar = () => {
 
       {/* Sidebar */}
       <div
-        className={`fixed top-0 left-0 h-screen w-80 lg:w-96 bg-gray-900 text-white transition-transform duration-300 ease-in-out z-40 ${isOpen ? 'transform translate-x-0' : 'transform -translate-x-full'}`}
+        className={`fixed top-0 left-0 overflow-y-auto pb-10 h-screen w-80 lg:w-96 bg-gray-900 text-white transition-transform duration-300 ease-in-out z-40 ${isOpen ? 'transform translate-x-0' : 'transform -translate-x-full'}`}
       >
-        {/* Logo Centralizada */}
         <div className="flex justify-center my-6">
           <img
             src={logo} alt='Logo'
@@ -50,6 +50,12 @@ const Sidebar = () => {
         </div>
 
         <ul className="px-5">
+        <li className="mb-6">
+            <a href="/dashboard" className="flex items-center text-xl hover:bg-gray-700 p-3 rounded">
+              <MdDashboard className="mr-4 text-blue-400" size={28} />
+              Dashboard
+            </a>
+          </li>
           <li className="mb-6">
             <a href="/pedidos-internos" className="flex items-center text-xl hover:bg-gray-700 p-3 rounded">
               <CgInternal className="mr-4 text-blue-400" size={28} />
@@ -77,13 +83,13 @@ const Sidebar = () => {
           <li className="mb-6">
             <a href="/cadastrar-mesa" className="flex items-center text-xl hover:bg-gray-700 p-3 rounded">
               <MdTableRestaurant className="mr-4 text-blue-400" size={28} />
-              Cadastrar Mesa
+              Gerenciar Mesas
             </a>
           </li>
           <li className="mb-6">
             <a href="/registrar-garcom" className="flex items-center text-xl hover:bg-gray-700 p-3 rounded">
-              <RiUserAddFill className="mr-4 text-blue-400" size={28} />
-              Registrar Garçom
+              <FiUsers className="mr-4 text-blue-400" size={28} />
+              Gerenciar Garçons
             </a>
           </li>
           <li>

@@ -11,6 +11,7 @@ function PedidosInternos() {
       items={mesas}
       fetchItemsData={fetchPedidosMesa}
       fetchItems={fetchMesas}
+      isExternal={false}
     />
   );
 }

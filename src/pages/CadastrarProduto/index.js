@@ -23,7 +23,7 @@ const RegisterProduct = () => {
   };
 
   const handleSubmit = async () => {
-    if (!nome || !descricao || !preco || selectedCategorias.length === 0) {
+    if (!nome || !preco || selectedCategorias.length === 0) {
       setErrorMessage('Por favor, preencha todos os campos e selecione pelo menos uma categoria.');
       return;
     }

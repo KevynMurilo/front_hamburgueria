@@ -1,4 +1,3 @@
-// Modal.jsx
 import React, { useState } from 'react';
 import { IoMdClose } from 'react-icons/io';
 import { useRestauranteContext } from '../../contexts/PedidoContext';
@@ -8,9 +7,8 @@ function Modal({ itemId, data = [], onClose, onSuccess }) {
   const [error, setError] = useState(null);
   const { updateMesaStatus, atualizarPedidosMesa } = useRestauranteContext();
 
-  const pedidosPendentes = data.filter((pedido) => pedido.status === 'pendente');
 
-  const total = pedidosPendentes.reduce((acc, pedido) => {
+  const total = data.reduce((acc, pedido) => {
     const pedidoTotal = pedido.itens.reduce((accItem, item) => {
       const adicionaisTotal = item.itensAdicionais.reduce(
         (accAdicional, adicional) => accAdicional + adicional.itemAdicional.preco,
@@ -27,7 +25,7 @@ function Modal({ itemId, data = [], onClose, onSuccess }) {
       return;
     }
 
-    const ids = pedidosPendentes.map((pedido) => pedido.id);
+    const ids = data.map((pedido) => pedido.id);
 
     try {
       await atualizarPedidosMesa(ids, metodoPagamento);
@@ -49,13 +47,13 @@ function Modal({ itemId, data = [], onClose, onSuccess }) {
         />
         <div className="text-white overflow-y-auto max-h-full lg:max-h-screen flex flex-col">
           <h2 className="text-2xl font-bold mb-4">Detalhes do Pedido</h2>
-          {pedidosPendentes.length === 0 ? (
+          {data.length === 0 ? (
             <p>Nenhum pedido pendente.</p>
           ) : (
             <>
               <div className="text-sm font-medium mb-4">
-                <p>{new Date(pedidosPendentes[0].hora_pedido).toLocaleDateString()}</p>
-                <p>{new Date(pedidosPendentes[0].hora_pedido).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+                <p>{new Date(data[0].hora_pedido).toLocaleDateString()}</p>
+                <p>{new Date(data[0].hora_pedido).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
               </div>
               <p className="text-lg mb-2">
                 <span className="font-bold">ID:</span> {itemId}
@@ -64,7 +62,7 @@ function Modal({ itemId, data = [], onClose, onSuccess }) {
                 <h3 className="text-xl font-semibold mb-2 sticky top-0 bg-gray-900 py-2">
                   Itens do Pedido:
                 </h3>
-                {pedidosPendentes.map((pedido, index) => (
+                {data.map((pedido, index) => (
                   <div key={index} className="mb-4 border-b border-gray-700 pb-4">
                     {pedido.itens.map((item, itemIndex) => (
                       <div key={itemIndex} className="mb-4 p-2 bg-gray-800 rounded-lg">
@@ -77,7 +75,7 @@ function Modal({ itemId, data = [], onClose, onSuccess }) {
                           <ul className="ml-4 mt-2 text-sm text-gray-400">
                             {item.itensAdicionais.map((adicional, adicionalIndex) => (
                               <li key={adicionalIndex} className="flex justify-between">
-                                <span>{adicional.itemAdicional.nome}</span>
+                                <span>- {adicional.itemAdicional.nome}</span>
                                 <span>R$ {adicional.itemAdicional.preco.toFixed(2)}</span>
                               </li>
                             ))}

@@ -79,6 +79,7 @@ export const RestauranteProvider = ({ children }) => {
     }
   };
 
+  //tem que passar numero da mesa
   const fetchPedidosMesa = async (mesaId) => {
     try {
       const response = await axios.get(`http://192.168.0.105:8081/pedidos/mesa/${mesaId}`);
@@ -118,6 +119,7 @@ export const RestauranteProvider = ({ children }) => {
     }
   };
 
+  //tem que passar id_externo
   const fetchPedidosCliente = async (clienteId) => {
     try {
       const response = await axios.get(`http://192.168.0.105:8081/pedidos/cliente/${clienteId}`);
@@ -125,6 +127,15 @@ export const RestauranteProvider = ({ children }) => {
     } catch (error) {
       console.error('Erro ao buscar pedidos do cliente:', error);
       return [];
+    }
+  };
+
+  const deleteItemPedido = async (itemId) => {
+    try {
+      await axios.delete(`http://192.168.0.105:8081/itens-do-pedido/${itemId}`);
+      // Atualizar a lista de pedidos ou o estado relevante após a deleção
+    } catch (error) {
+      console.error('Erro ao deletar item do pedido:', error);
     }
   };
 
@@ -144,6 +155,7 @@ export const RestauranteProvider = ({ children }) => {
     atualizarPedidosMesa,
     fetchPedidosPendentesClientes,
     fetchPedidosCliente,
+    deleteItemPedido, // Adicione a função ao contexto
   };
 
   return (

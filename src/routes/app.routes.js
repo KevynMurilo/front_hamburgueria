@@ -6,9 +6,10 @@ import PedidosExternos from "../pages/PedidosExternos";
 import PedidoForm from "../pages/FazerPedido";
 import RegisterProduct from "../pages/CadastrarProduto";
 import RegisterTable from "../pages/CadastrarMesa";
-import RegisterWaiter from "../pages/RegistrarGarcom";
+import GerenciarGarcons from "../pages/GerenciarGarcons";
 import Login from "../pages/Login";
 import AuthContext from "../contexts/AuthContext";
+import DashboardPage from "../pages/Dashboard";
 
 export const AppRoutes = () => {
   const location = useLocation();
@@ -27,8 +28,9 @@ export const AppRoutes = () => {
               <Route path="/pedidos-externos" element={<PedidosExternos />} />
               <Route path="/realizar-pedidos" element={<PedidoForm />} />
               <Route path="/cadastrar-produto" element={<RegisterProduct />} />
-              <Route path="/registrar-garcom" element={<RegisterWaiter />} />
+              <Route path="/registrar-garcom" element={<GerenciarGarcons />} />
               <Route path="/cadastrar-mesa" element={<RegisterTable />} />
+              <Route path="/dashboard" element={<DashboardPage />} />
             </>
           ) : (
             <>
